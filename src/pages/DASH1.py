@@ -15,7 +15,7 @@ def create_dashboard():
     if data is not None:
 
         fig = life_expectancy_expenditure(data)
-        #carte(data)  # Génère le fichier `vih_prevalence_map.html`
+        carte(data)  # Génère le fichier `vih_prevalence_map.html`
     else:
         fig = None
         print("Erreur lors du chargement des données.")
@@ -39,8 +39,8 @@ def create_dashboard():
         par pays.
     ''')
     ])
-    app.run_server(debug=True)
-    
+    app.run_server(debug=True, use_reloader =False)
+    webbrowser.open("http://127.0.0.1:8050/")
     
 if  __name__ == '__main__':
     create_dashboard()

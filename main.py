@@ -4,7 +4,15 @@ from src.utils.get_data import load_cleaned_data
 
 # Charger les données nettoyées
 data = load_cleaned_data()
+from src.pages.DASH1 import create_dashboard
+if data is not None:
+    print(data.head())  # Pour vérifier que les données sont bien chargées
+else:
+    print("Erreur lors du chargement des données.")
 
+# Appeler la fonction pour démarrer le dashboard
+create_dashboard()
+"""
 if data is not None:
     print(data.head())  # Pour vérifier que les données sont bien chargées
 else:
@@ -21,15 +29,16 @@ if data is not None:
     plotly.io.write_html(fig, file='fig.html', auto_open=True, include_plotlyjs='cdn')
 else:
     print("Erreur lors du chargement des données.")
-"""
+
 from src.components.carte import carte
 if data is not None:
     car = carte(data)
     webbrowser.open(carte)
 else:
     print("Pas possible d'afficher la carte")
-"""
+
 from src.pages.DASH1 import create_dashboard
 
 # Appeler la fonction pour démarrer le dashboard
 create_dashboard()
+"""
