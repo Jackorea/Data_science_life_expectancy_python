@@ -1,10 +1,15 @@
 import plotly.express as px
 
-def create_life_expectancy_chart(data):
+def life_expectancy_developing_country_chart(data):
     if data is None:
         print("Les données sont introuvables pour créer le graphique.")
         return None
+    developing = data[data['Status'] == "Developed"]
     
     # Créer le graphique
-    fig = px.line(data, x="Year", y="Life Expectancy ", title="Life Expectancy Over Time")
+    fig = px.scatter(developing, 
+                    x="Year", 
+                    y="Life expectancy ", 
+                    title="Life Expectancy Over Time",
+                    hover_name="Country")
     return fig
