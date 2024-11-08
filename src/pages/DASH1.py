@@ -3,6 +3,7 @@ import plotly.express as px
 import plotly.io as pio
 import dash
 from dash import dcc, html
+import webbrowser 
 
 from src.utils.get_data import load_cleaned_data
 from src.components.component3 import life_expectancy_expenditure
@@ -15,7 +16,7 @@ def create_dashboard():
     if data is not None:
 
         fig = life_expectancy_expenditure(data)
-        carte(data)  # Génère le fichier `vih_prevalence_map.html`
+        car = carte(data)  # Génère le fichier `vih_prevalence_map.html`
     else:
         fig = None
         print("Erreur lors du chargement des données.")
@@ -37,10 +38,14 @@ def create_dashboard():
         de santé pour l'année 2008. Chaque point représente un pays avec ses propres
         valeurs de dépenses et d'espérance de vie. La carte montre la prévalence du VIH
         par pays.
-    ''')
+    '''),
+    html.Div([
+            html.H2("Carte VIH"),
+            html.Iframe(srcDoc=car, width="100%", height="600px")
+        ])
     ])
-    app.run_server(debug=True, use_reloader =False)
     webbrowser.open("http://127.0.0.1:8050/")
+    app.run_server(debug=True, use_reloader =False)
     
 if  __name__ == '__main__':
     create_dashboard()
