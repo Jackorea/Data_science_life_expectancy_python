@@ -8,7 +8,7 @@ import folium
 import json
 import time 
 def carte(data):
-    year2004 = data[data['Year'] == 2015]
+    year2004 = data[data['Year'] == 2004]
     countries = year2004['Country'].unique()
     geolocator = Nominatim(user_agent="myVihPrevalenceApp_2024")
     coordinates = {}
@@ -28,11 +28,11 @@ def carte(data):
             lat, lon = coordinates[country]
             folium.CircleMarker(
                 location=[lat, lon],
-                radius=0.1 + vih * 2,  # Ajuster la taille du cercle en fonction de la prévalence
+                radius= 0.8+ vih * 0.7,  # Ajuster la taille du cercle en fonction de la prévalence
                 color='crimson',
                 fill=True,
                 fill_color='crimson',
-                fill_opacity=0.6,
+                fill_opacity=0.4,
                 popup=f"{country}: {vih}%"
             ).add_to(world_map)
 

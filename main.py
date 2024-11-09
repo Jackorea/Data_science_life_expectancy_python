@@ -11,7 +11,8 @@ else:
     print("Erreur lors du chargement des données.")
 
 # Appeler la fonction pour démarrer le dashboard
-create_dashboard()
+if __name__ == "__main__":
+    create_dashboard()
 """
 if data is not None:
     print(data.head())  # Pour vérifier que les données sont bien chargées

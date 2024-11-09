@@ -12,13 +12,13 @@ def life_expectancy_expenditure(data):
         y='Total expenditure',
         nbins=10,  # Nombre de "bins" ou intervalles pour l'espérance de vie
         title='Histogramme de l\'espérance de vie et des dépenses de santé en 2008',
-        labels={'Life expectancy ': 'Espérance de vie', 'Total expenditure': 'Dépenses de santé (% du PIB)'},
+        labels={'Life expectancy ': 'Espérance de vie', 'Total expenditure ': 'Dépense des dépenses des pays selon leur dépenses totales'},
         color_discrete_sequence=['#636EFA']
     )
     
     fig.update_layout(
         xaxis_title="Espérance de vie",
-        yaxis_title="Dépenses de santé (% du PIB)"
+        yaxis_title="Total expenditure"
     )
 
     return fig

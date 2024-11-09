@@ -1,40 +1,54 @@
 import pandas as pd
-import plotly
-import plotly.graph_objects as go
 import plotly.express as px
-life = pd.read_csv("Updated_Life_Expectancy_Data.csv")
-print(life)
-#print(life.head())
-print(life.describe())
-Countries = life["Country"]
-Countries = Countries.unique()
-print(Countries)
-Years = life["Year"]
-Years = Years.unique()
-print(Years)
-status= life["Status"]
-status=status.unique()
-print(status)
 
+def life_expectancy_percentage_expenditure_2010_paysnodev(data):
+    if data is None:
+        print("Les données sont introuvables pour créer le graphique.")
+        return None
+    yearDeveloping = data.query("Year==2010 and Status=='Developing'")
+    
+    fig = px.scatter(
+        yearDeveloping,
+        x='Life expectancy ',
+        y='Diphtheria ',
+        hover_name='Country',  # Ajoute le nom des pays lors du survol
+        labels={
+            'Life expectancy ': 'Espérance de vie',
+            'Diphtheria ': ' impact campagne vaccin'
+        },
+        title="Espérance de vie vs l'inpact les campagne de vaccin pour les pays en développement (2010)"
+    )
 
+    fig.update_traces(marker=dict(size=10))  # Ajuste la taille des points si nécessaire
+    fig.update_layout(
+        xaxis_title="Espérance de vie",
+        yaxis_title="Diphtheria "
+    )
 
+    return fig
 
-Year = 2010
-Status = 'Developing'
-yearDeveloping = life.query("Year==2010 and Status=='Developing'")
-print(yearDeveloping)
+def life_expectancy_percentage_expenditure_2010_paysdev(data):
+    if data is None:
+        print("Les données sont introuvables pour créer le graphique.")
+        return None
+    yearDeveloped = data.query("Year==2010 and Status=='Developed'")
+    
+    fig = px.scatter(
+        yearDeveloped,
+        x='Life expectancy ',
+        y='Diphtheria ',
+        hover_name='Country',  # Ajoute le nom des pays lors du survol
+        labels={
+            'Life expectancy ': 'Espérance de vie',
+            'Diphtheria ': 'Campagne vaccinale'
+        },
+        title="Espérance de vie vs campagne vaccinale pour les pays développés (2010)"
+    )
 
+    fig.update_traces(marker=dict(size=10))  # Ajuste la taille des points si nécessaire
+    fig.update_layout(
+        xaxis_title="Espérance de vie",
+        yaxis_title="campagne vaccinale"
+    )
 
-
-trace = go.Scatter( x=yearDeveloping['Life expectancy '],
-                    y=yearDeveloping[' BMI '],
-                     mode='markers',
-                    text=yearDeveloping['Country'],      
-                    hoverinfo='text+x+y' )
-data = [trace] 
-layout = go.Layout( title="fgvhbjnk,",
-                    xaxis= dict(title="Life expect"),
-                    yaxis=dict(title="Alcohol Consumption"), )
-fig = go.Figure(data=data, layout=layout)
-plotly.io.write_html(fig, file='fig.html', auto_open=True, include_plotlyjs='cdn')
-
+    return fig
