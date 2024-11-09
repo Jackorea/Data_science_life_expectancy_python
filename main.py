@@ -1,6 +1,21 @@
-import plotly.io  
+import plotly.io
+import pandas as pd
+import os
 import webbrowser
 from src.utils.get_data import load_cleaned_data
+from src.utils.clean_data import clean_data, raw_data_path, cleaned_data_path
+
+# Charger les données non-nettoyées
+raw_data = pd.read_csv(raw_data_path)
+
+# nettoyer les données
+cleaned_data = clean_data(raw_data)
+
+# Save the cleaned data
+os.makedirs(os.path.dirname(cleaned_data_path), exist_ok=True)
+cleaned_data.to_csv(cleaned_data_path, index=False)
+
+print(f"Cleaned data saved to {cleaned_data_path}")
 
 # Charger les données nettoyées
 data = load_cleaned_data()
