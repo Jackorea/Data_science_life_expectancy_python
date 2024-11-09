@@ -11,6 +11,7 @@ from src.components.carte import carte
 from src.components.component4 import life_expectancy_zimbabwe
 from src.components.component import life_expectancy_percentage_expenditure_2010_paysdev
 from src.components.component import life_expectancy_percentage_expenditure_2010_paysnodev
+from src.components.component5 import life_thiness
 
 def create_dashboard():
     app = dash.Dash(__name__)
@@ -21,6 +22,7 @@ def create_dashboard():
         fig1 = life_expectancy_zimbabwe(data)
         fig2 = life_expectancy_percentage_expenditure_2010_paysdev(data)
         fig3 = life_expectancy_percentage_expenditure_2010_paysnodev(data)
+        fig4 = life_thiness(data)
         car = carte(data)  # Génère le fichier `vih_prevalence_map.html`
     else:
         fig = None
@@ -28,8 +30,8 @@ def create_dashboard():
 
 
     app.layout = html.Div(children=[
-        html.H1("Dashboard : L'importance de la santé dans le monde"),
-        dcc.Tabs([
+    html.H1("Dashboard : L'importance de la santé dans le monde"),
+    dcc.Tabs([
         # Onglet Présentation du projet
         dcc.Tab(label='Présentation du projet', children=[
             html.Div([
@@ -45,42 +47,36 @@ def create_dashboard():
                     des renseignements sur les relations entre ces éléments et les résultats de santé 
                     dans différents pays pour connaitre l'impact de ses éléments sur l'espérence de vie .
                 '''),
-                html.P('''
-                    
-                       
-                    Les données utilisées pour cette analyse proviennent de l'Organisation
-                    mondiale de la santé (OMS), garantissant des informations de haute qualité
-                    et fiable pour une interprétation raisonnée et correct.
-                    
-                    Nos données sont les suivantes: 
-                    Les pays du monde: country
-                    Les années des données de 2000 à 2015:Year
-                    Le Status: Status (Developed or Developing). 
-                    L'espérence de vie: Life expectancy( en age)
-                    La motalité des adultes:  Adult Mortality (probability of dying between 15 and 60 years per 1000 population)
-                    La mortalité infantile: infant deaths (Number of Infant Deaths per 1000 population) 
-                    Le taux d'alcool: Alcohol (recorded per capita (15+) consumption (in litres of pure alcohol))
-                    Le pourcentage de depense d'etat PIB: percentage expenditure(Expenditure on health as a percentage of Gross Domestic Product per capita(%))
-                    Hepatide B: Hepatitis B  immunization coverage among 1-year-olds (%). 
-                    Rougeoles: Measles - number of reported cases per 1000 population. 
-                    Indice masse corporelle: BMI Average Body Mass Index of entire population
-                    Mort enfent 5 nas under-five deaths (per 1000 population)
-                    Polio: Polio (immunization coverage among 1-year-olds (%))
-                    Dépense en santé selon toute les dépenses: Total expenditure (General government expenditure on health as a percentage of total government expenditure (%))
-                    Diphtheria: Diphtheria (tetanus toxoid and pertussis (DTP3) immunization coverage among 1-year-olds (%))
-                    Taux de sida et vih: HIV/AIDS (Deaths per 1 000 live births HIV/AIDS (0-4 years))
-                    PIB: GDP  (in USD)
-                    Population 
-                    Minceur: thinness 1-19 years: Prevalence of thinness among children and adolescents for Age 10 to 19 (% )
-                    Minceur: thinness 5-9 years: Prevalence of thinness among children for Age 5 to 9(%)
-                    Resoouce: Income composition of resources(Human Development Index (index ranging from 0 to 1)
-                    Année à l'école: Schooling Number of years of Schooling(years)
-                ''')
+                html.P("Les données utilisées pour cette analyse proviennent de l'Organisation mondiale de la santé (OMS), garantissant des informations de haute qualité et fiables pour une interprétation raisonnée et correcte."),
+                html.P("Nos données sont les suivantes :"),
+                html.Ul([
+                html.Li("Pays du monde : country"),
+                html.Li("Années des données de 2000 à 2015 : Year"),
+                html.Li("Status : Status (Développé ou en Développement)"),
+                html.Li("Espérance de vie : Life expectancy (en âge)"),
+                html.Li("Mortalité des adultes : Adult Mortality (probabilité de mourir entre 15 et 60 ans pour 1000 personnes)"),
+                html.Li("Mortalité infantile : infant deaths (nombre de décès d'enfants pour 1000 naissances)"),
+                html.Li("Taux d'alcool : Alcohol (consommation par habitant (15+) en litres d'alcool pur)"),
+                html.Li("Pourcentage de dépense d'état dans le PIB : percentage expenditure (dépenses de santé en % du PIB par habitant)"),
+                html.Li("Hépatite B : Hepatitis B (couverture vaccinale des enfants de 1 an en %)"),
+                html.Li("Rougeoles : Measles (nombre de cas rapportés pour 1000 habitants)"),
+                html.Li("Indice de masse corporelle : BMI (IMC moyen de la population)"),
+                html.Li("Mortalité des enfants de moins de 5 ans : Under-five deaths (pour 1000 habitants)"),
+                html.Li("Polio : Polio (couverture vaccinale des enfants de 1 an en %)"),
+                html.Li("Dépenses de santé (% des dépenses gouvernementales totales) : Total expenditure"),
+                html.Li("Diphtérie : Diphtheria (couverture de vaccination DTP3 des enfants de 1 an en %)"),
+                html.Li("Taux de sida et VIH : HIV/AIDS (décès pour 1000 naissances vivantes chez les 0-4 ans)"),
+                html.Li("Produit Intérieur Brut (PIB) : GDP (en USD)"),
+                html.Li("Minceur chez les 10-19 ans : thinness prevalence (pourcentage)"),
+                html.Li("Minceur chez les 5-9 ans : thinness prevalence (pourcentage)"),
+                html.Li("Indice de ressources : Income composition of resources (Indice de développement humain de 0 à 1)"),
+                html.Li("Années de scolarité : Schooling (nombre d'années de scolarité)")
+            ])
             ])
         ]),
         
         # Onglet Graphique
-        dcc.Tab(label='Graphique', children=[
+        dcc.Tab(label='L etat doit il investir de l argent dans la santé  ', children=[
             html.Div([
                 dcc.Graph(
                     id='graph1',
@@ -89,14 +85,16 @@ def create_dashboard():
                 ),
                 html.Div(children=f'''
                     L'histogram ci-dessus montre la relation entre l'espérance de vie et les dépenses
-                    de santé pour l'année 2008. Chaque point représente un pays avec ses propres
-                    valeurs de dépenses et d'espérance de vie. 
+                    de santé pour l'année 2008. Les barres indiquent la répartition des pays, on remarque que l'espérence de vie est
+                    le plus élevée pour les pays investissant le plus. On peut donc penser que plus les pays investissant dans la santé 
+                    plus l'espérence de vie diminuera. Egalement, ici on prend le pourcentage en compte des dépenses de santé en fonction des dépenses 
+                    totales. 
                 ''')
             ])
         ]),
         
         # Onglet Carte VIH
-        dcc.Tab(label='Carte VIH', children=[
+        dcc.Tab(label='Carte VIH et graphique evolution', children=[
             html.Div([
                 html.P('''
                     Cette page nous permet de renseigner l'impact de la campagne de lutte contre le vih et le sida
@@ -112,11 +110,13 @@ def create_dashboard():
                 ),
                 html.Div(children='''
                     Le graphique ci-dessus montre l'évolution de l'espérance de vie par rapport au taux de VIH au fil des années.
+                    On remarque ici par la fin de l'animation que dans les pays ou le taux de sida est le plus élevé, la baisse de ce taux 
+                         a entrainé une importante hausse de l'espérence de vie. C'est donc un facteur très important. 
                 ''')
             ])
         ]),
-        # Onglet BMI 
-        dcc.Tab(label='Graphique', children=[
+        # Onglet Vaccination
+        dcc.Tab(label=' Impact de la Vaccination ici diphteria ', children=[
                 html.Div([
                 dcc.Graph(
                     id='graph3',
@@ -129,7 +129,24 @@ def create_dashboard():
                     config={'displayModeBar': False}
                 ),
                 html.Div(children='''
-                    on regarde les pays dévelopés 
+                    On remarque que tout les pays dévelopées ont une espérence de vie de plus de 72 ans et une campagne de vaccination 
+                    efficace tandis que pour les pays en développement certaines campagnes sont moins présente et du coup
+                    baisse l'espérence de vie
+                ''')
+            ])
+        ]),
+        # Onglet Thiness
+        dcc.Tab(label='Impact de la minceur des 5/19 ans ', children=[
+                html.Div([
+                dcc.Graph(
+                    id='graph5',
+                    figure=fig4 if fig4 is not None else {},
+                    config={'displayModeBar': False}
+                ),
+                html.Div(children='''
+                    La valeur de 5 est atteinte seulement par les pays en développement, on remarque la plus de la moitié des pays en développement 
+                    sont victime de minceur et donc elle a un impact sur l'espérence de vie. 
+                    
                 ''')
             ])
         ]),
