@@ -21,6 +21,16 @@ def clean_data(raw_data):
     if 'Year' in cleaned_data.columns:
         cleaned_data['Year'] = cleaned_data['Year'].astype(int)
 
+    # Remove rows where 'Country' is 'Tuvalu' or 'Marshall Islands'
+    cleaned_data = cleaned_data[~cleaned_data['Country'].isin(['Tuvalu', 'Marshall Islands'])]
+
+    # Update 'Status' column to 'Developed' for specific countries
+    developed_countries = [
+        'France', 'Republic of Korea', 'Canada', 'Israel', 'Finland', 'Qatar',
+        'United Arab Emirates', 'Saudi Arabia', 'Kuwait', 'Greece', 'Estonia'
+    ]
+    cleaned_data.loc[cleaned_data['Country'].isin(developed_countries), 'Status'] = 'Developed'
+
     print("Data cleaning complete.")
     return cleaned_data
 
