@@ -5,7 +5,7 @@ import dash
 from dash import dcc, html
 import webbrowser 
 
-from src.utils.get_data import load_cleaned_data
+from src.utils.clean_data import load_cleaned_data
 from src.components.component3 import life_expectancy_expenditure
 from src.components.carte import carte
 from src.components.component4 import life_expectancy_zimbabwe
