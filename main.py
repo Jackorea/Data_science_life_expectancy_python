@@ -3,9 +3,14 @@ import pandas as pd
 import os
 import webbrowser
 from src.utils.clean_data import clean_data, load_cleaned_data, load_raw_data, save_cleaned_data, raw_data_path, cleaned_data_path
-from src.utils.get_data import download_data, rename_file
+from src.utils.copy_json_file import setup_kaggle_credentials
 
 def main():
+    setup_kaggle_credentials()
+    
+    #Importer les fonctions liées à Kaggle uniquement après la configuration des identifiants
+    from src.utils.get_data import download_data, rename_file
+
     # Définir le jeu de données et le chemin de sauvegarde
     dataset = "kumarajarshi/life-expectancy-who"
     raw_data_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'raw')
