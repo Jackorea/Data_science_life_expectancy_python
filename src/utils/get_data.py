@@ -13,20 +13,22 @@ def download_data(dataset, save_path):
 
 def rename_file(downloaded_file, new_file_path):
     if os.path.exists(downloaded_file):
-        os.rename(downloaded_file, raw_data_file)
-        print(f"File renamed to {raw_data_file}")
+        if os.path.exists(new_file_path):  # Vérifiez si le fichier de destination existe
+            os.remove(new_file_path)       # Supprimez-le si c'est le cas
+        os.rename(downloaded_file, new_file_path)
+        print(f"File renamed to {new_file_path}")
     else:
         print(f"Downloaded file not found: {downloaded_file}")
 
+# Identifiant du jeu de données Kaggle
+dataset = "kumarajarshi/life-expectancy-who"
 
-dataset = "kumarajarshi/life-expectancy-who"  # Kaggle dataset identifier
-
-# Ensure the directory exists
+# Vérifier si le répertoire existe
 os.makedirs(raw_data_path, exist_ok=True)
 
-# Download data
+# Télécharger les données
 download_data(dataset, raw_data_path)
 
-# Rename the downloaded file to 'rawdata.csv'
-downloaded_file = os.path.join(raw_data_path, "Life Expectancy Data.csv")  # Adjust this if the file name is different
+# Renommer le fichier téléchargé en 'rawdata.csv'
+downloaded_file = os.path.join(raw_data_path, "Life Expectancy Data.csv")
 rename_file(downloaded_file, raw_data_file)

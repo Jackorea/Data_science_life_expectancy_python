@@ -28,10 +28,10 @@ def clean_data(raw_data):
     if 'Year' in cleaned_data.columns:
         cleaned_data['Year'] = cleaned_data['Year'].astype(int)
 
-    # Remove rows where 'Country' is 'Tuvalu' or 'Marshall Islands'
+    # Supprimer les lignes où la colonne 'Country' est 'Tuvalu' ou 'Marshall Islands'
     cleaned_data = cleaned_data[~cleaned_data['Country'].isin(['Tuvalu', 'Marshall Islands'])]
 
-    # Update 'Status' column to 'Developed' for specific countries
+    # Mettre à jour la colonne 'Status' en 'Developed' pour certains pays
     developed_countries = [
         'France', 'Republic of Korea', 'Canada', 'Israel', 'Finland', 'Qatar',
         'United Arab Emirates', 'Saudi Arabia', 'Kuwait', 'Greece', 'Estonia'
@@ -47,7 +47,6 @@ def save_cleaned_data(cleaned_data):
     cleaned_data.to_csv(cleaned_data_path, index=False)
     print(f"Cleaned data saved to {cleaned_data_path}")
 
-#Load data in DASH1.py
 def load_cleaned_data():
     # Définir le chemin d'accès au fichier nettoyé
     data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'cleaned', 'cleaneddata.csv')

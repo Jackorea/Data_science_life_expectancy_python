@@ -27,7 +27,6 @@ def create_dashboard():
         fig = None
         print("Erreur lors du chargement des données.")
 
-
     app.layout = html.Div(children=[
     html.H1("Dashboard : L'importance de la santé dans le monde"),
     dcc.Tabs([
