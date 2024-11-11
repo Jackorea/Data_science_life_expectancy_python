@@ -1,10 +1,9 @@
 
 import plotly.express as px
 import plotly.io as pio
+import webbrowser
 import dash
 from dash import dcc, html
-import webbrowser 
-
 from src.utils.clean_data import load_cleaned_data
 from src.components.component3 import life_expectancy_expenditure
 from src.components.carte import carte

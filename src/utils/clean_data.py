@@ -5,8 +5,15 @@ import os
 raw_data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'raw', 'rawdata.csv')
 cleaned_data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'cleaned', 'cleaneddata.csv')
 
-# Charger les données non-nettoyés
-raw_data = pd.read_csv(raw_data_path)
+def load_raw_data():
+    """Load raw data from the specified path."""
+    try:
+        raw_data = pd.read_csv(raw_data_path)
+        print("Raw data loaded successfully.")
+        return raw_data
+    except FileNotFoundError:
+        print(f"Raw data file not found: {raw_data_path}")
+        return None
 
 def clean_data(raw_data):
     # Supprimer les doublons
@@ -34,14 +41,13 @@ def clean_data(raw_data):
     print("Data cleaning complete.")
     return cleaned_data
 
-# Nettoyer les données
-cleaned_data = clean_data(raw_data)
+def save_cleaned_data(cleaned_data):
+    """Save the cleaned data to the specified path."""
+    os.makedirs(os.path.dirname(cleaned_data_path), exist_ok=True)
+    cleaned_data.to_csv(cleaned_data_path, index=False)
+    print(f"Cleaned data saved to {cleaned_data_path}")
 
-# Sauvegarder les données nettoyées
-os.makedirs(os.path.dirname(cleaned_data_path), exist_ok=True)
-cleaned_data.to_csv(cleaned_data_path, index=False)
-print(f"Cleaned data saved to {cleaned_data_path}")
-
+#Load data in DASH1.py
 def load_cleaned_data():
     # Définir le chemin d'accès au fichier nettoyé
     data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'cleaned', 'cleaneddata.csv')
@@ -54,3 +60,9 @@ def load_cleaned_data():
     except FileNotFoundError:
         print("Le fichier 'cleaneddata.csv' est introuvable.")
         return None
+    
+if __name__ == "__main__":
+    raw_data = load_raw_data()
+    if raw_data is not None:
+        cleaned_data = clean_data(raw_data)
+        save_cleaned_data(cleaned_data)
