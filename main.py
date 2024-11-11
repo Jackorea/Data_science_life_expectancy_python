@@ -1,39 +1,61 @@
+
 import plotly.io
 import pandas as pd
 import os
 import webbrowser
-from src.utils.clean_data import clean_data, load_cleaned_data, load_raw_data, save_cleaned_data, raw_data_path, cleaned_data_path
-from src.utils.get_data import download_data, rename_file
+from src.utils.clean_data import clean_data, load_cleaned_data, raw_data_path, cleaned_data_path
 
-def main():
-    # Définir le jeu de données et le chemin de sauvegarde
-    dataset = "kumarajarshi/life-expectancy-who"
-    raw_data_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'raw')
-    raw_data_file = os.path.join(raw_data_dir, 'rawdata.csv')
-    os.makedirs(raw_data_dir, exist_ok=True)
+# Charger les données non-nettoyées
+raw_data = pd.read_csv(raw_data_path)
 
-    # Télécharger les données
-    download_data(dataset, raw_data_dir)
+# nettoyer les données
+cleaned_data = clean_data(raw_data)
 
-    # Renommer le fichier téléchargé en 'rawdata.csv'
-    downloaded_file = os.path.join(raw_data_dir, "Life Expectancy Data.csv")  # Adjust this if the file name is different
-    rename_file(downloaded_file, raw_data_file)
+# Save the cleaned data
+os.makedirs(os.path.dirname(cleaned_data_path), exist_ok=True)
+cleaned_data.to_csv(cleaned_data_path, index=False)
 
-    # Charger, nettoyer et sauvegarder les données
-    raw_data = load_raw_data()
-    if raw_data is not None:
-        cleaned_data = clean_data(raw_data)
-        save_cleaned_data(cleaned_data)
+print(f"Cleaned data saved to {cleaned_data_path}")
 
-    # Charger les données nettoyées
-    data = load_cleaned_data()
-    from src.pages.DASH1 import create_dashboard
-    if data is not None:
-        print(data.head())  # Pour vérifier que les données sont bien chargées
-    else:
-        print("Erreur lors du chargement des données.")
+# Charger les données nettoyées
+data = load_cleaned_data()
+from src.pages.DASH1 import create_dashboard
+if data is not None:
+    print(data.head())  # Pour vérifier que les données sont bien chargées
+else:
+    print("Erreur lors du chargement des données.")
 
-    create_dashboard() #démarrer le dashboard
-
+# Appeler la fonction pour démarrer le dashboard
 if __name__ == "__main__":
-    main()
+    create_dashboard()
+
+"""
+if data is not None:
+    print(data.head())  # Pour vérifier que les données sont bien chargées
+else:
+    print("Erreur lors du chargement des données.")
+
+from src.components.component3 import life_expectancy_expenditure
+
+# Charger les données nettoyées
+data = load_cleaned_data()
+
+if data is not None:
+    fig = life_expectancy_expenditure(data)
+    #fig.show()  # Affiche le graphique si vous êtes dans un environnement supportant les visualisations
+    plotly.io.write_html(fig, file='fig.html', auto_open=True, include_plotlyjs='cdn')
+else:
+    print("Erreur lors du chargement des données.")
+
+from src.components.carte import carte
+if data is not None:
+    car = carte(data)
+    webbrowser.open(carte)
+else:
+    print("Pas possible d'afficher la carte")
+
+from src.pages.DASH1 import create_dashboard
+
+# Appeler la fonction pour démarrer le dashboard
+create_dashboard()
+"""

@@ -9,6 +9,15 @@ def life_thiness(data):
     fig = px.scatter(year2008, 
                     x="Life expectancy ", 
                     y=" thinness  1-19 years", 
-                    title="Life Expectancy Over Time",
+                    title="L espérance de vie en fonction de la minceur",
+                    hover_name="Status", color="Status")
+    return fig
+def infant_deaths_thiness(data):
+    year2008 = data[data['Year'] == 2008]
+    # Créer le graphique
+    fig = px.scatter(year2008, 
+                    x="infant deaths", 
+                    y=" thinness  1-19 years", 
+                    title="La mortalité infantile en fonction de la minceur",
                     hover_name="Status", color="Status")
     return fig

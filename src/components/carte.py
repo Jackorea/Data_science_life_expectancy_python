@@ -28,14 +28,11 @@ def carte(data):
             lat, lon = coordinates[country]
             folium.CircleMarker(
                 location=[lat, lon],
-                radius= 0.8+ vih * 0.7,  # Ajuster la taille du cercle en fonction de la prévalence
+                radius= 0.8+ vih * 0.7, 
                 color='crimson',
                 fill=True,
                 fill_color='crimson',
                 fill_opacity=0.4,
                 popup=f"{country}: {vih}%"
             ).add_to(world_map)
-
-    # Sauvegarder la carte dans un fichier HTML
-    #world_map.save("vih_prevalence_map_2004.html")
     return world_map._repr_html_()
