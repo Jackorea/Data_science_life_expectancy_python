@@ -6,13 +6,13 @@ raw_data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'raw
 cleaned_data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'cleaned', 'cleaneddata.csv')
 
 def load_raw_data():
-    """Load raw data from the specified path."""
+    #Chargez les données brutes depuis le chemin spécifié
     try:
         raw_data = pd.read_csv(raw_data_path)
-        print("Raw data loaded successfully.")
+        print("Les données brutes ont été chargées avec succès.")
         return raw_data
     except FileNotFoundError:
-        print(f"Raw data file not found: {raw_data_path}")
+        print(f"Fichier de données brutes introuvable: {raw_data_path}")
         return None
 
 def clean_data(raw_data):
@@ -38,14 +38,14 @@ def clean_data(raw_data):
     ]
     cleaned_data.loc[cleaned_data['Country'].isin(developed_countries), 'Status'] = 'Developed'
 
-    print("Data cleaning complete.")
+    print("Nettoyage des données terminé.")
     return cleaned_data
 
 def save_cleaned_data(cleaned_data):
-    """Save the cleaned data to the specified path."""
+    #Enregistrez les données nettoyées dans le chemin spécifié
     os.makedirs(os.path.dirname(cleaned_data_path), exist_ok=True)
     cleaned_data.to_csv(cleaned_data_path, index=False)
-    print(f"Cleaned data saved to {cleaned_data_path}")
+    print(f"Données nettoyées enregistrées dans {cleaned_data_path}")
 
 def load_cleaned_data():
     # Définir le chemin d'accès au fichier nettoyé

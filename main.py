@@ -21,7 +21,7 @@ def main():
     download_data(dataset, raw_data_dir)
 
     # Renommer le fichier téléchargé en 'rawdata.csv'
-    downloaded_file = os.path.join(raw_data_dir, "Life Expectancy Data.csv")  # Adjust this if the file name is different
+    downloaded_file = os.path.join(raw_data_dir, "Life Expectancy Data.csv")
     rename_file(downloaded_file, raw_data_file)
 
     # Charger, nettoyer et sauvegarder les données
@@ -37,8 +37,9 @@ def main():
         print(data.head())  # Pour vérifier que les données sont bien chargées
     else:
         print("Erreur lors du chargement des données.")
-
-    create_dashboard() #démarrer le dashboard
+        
+    #démarrer le dashboard
+    create_dashboard() 
 
 if __name__ == "__main__":
     main()

@@ -9,16 +9,16 @@ def download_data(dataset, save_path):
     api = KaggleApi()
     api.authenticate()
     api.dataset_download_files(dataset, path=save_path, unzip=True)
-    print(f"Data downloaded and saved to {save_path}")
+    print(f"Données téléchargées et enregistrées dans {save_path}")
 
 def rename_file(downloaded_file, new_file_path):
     if os.path.exists(downloaded_file):
         if os.path.exists(new_file_path):  # Vérifiez si le fichier de destination existe
             os.remove(new_file_path)       # Supprimez-le si c'est le cas
         os.rename(downloaded_file, new_file_path)
-        print(f"File renamed to {new_file_path}")
+        print(f"Fichier renommé en {new_file_path}")
     else:
-        print(f"Downloaded file not found: {downloaded_file}")
+        print(f"Fichier téléchargé introuvable: {downloaded_file}")
 
 # Identifiant du jeu de données Kaggle
 dataset = "kumarajarshi/life-expectancy-who"
