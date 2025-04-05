@@ -32,7 +32,7 @@ def main():
 
     # Charger les données nettoyées
     data = load_cleaned_data()
-    from src.pages.DASH1 import create_dashboard
+    from src.pages.DASH import create_dashboard
     if data is not None:
         print(data.head())  # Pour vérifier que les données sont bien chargées
     else:

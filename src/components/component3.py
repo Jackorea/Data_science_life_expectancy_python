@@ -21,26 +21,30 @@ def histo2(data):
         color_discrete_sequence=['#636EFA'])
     return fig
  
-
 def life_expectancy_expenditure(data):
     if data is None:
         print("Les données sont introuvables pour créer le graphique.")
         return None
+    
     year2008 = data[data['Year'] == 2008]
-    fig = px.histogram(
+
+    fig = px.scatter(
         year2008,
         x='Life expectancy ',
         y='Total expenditure',
-        nbins=10, 
-        title='Histogramme de l\'espérance de vie et des dépenses de santé en 2008',
-        labels={'Life expectancy ': 'Espérance de vie', 'Total expenditure ': 'Dépense des dépenses des pays selon leur dépenses totales'},
-        color_discrete_sequence=['#636EFA']
+        title="Espérance de vie vs Dépenses de santé (2008)",
+        labels={
+            'Life expectancy ': 'Espérance de vie',
+            'Total expenditure': 'Dépenses de santé (% du PIB)'
+        },
+        color='Status',
+        hover_name='Country', 
+        template='plotly_white'
     )
-    
+
     fig.update_layout(
         xaxis_title="Espérance de vie",
-        yaxis_title="Total expenditure"
+        yaxis_title="Dépenses de santé (% du PIB)"
     )
 
     return fig
-

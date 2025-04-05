@@ -10,7 +10,7 @@ def life_thiness(data):
                     x="Life expectancy ", 
                     y=" thinness  1-19 years", 
                     title="L espérance de vie en fonction de la minceur",
-                    hover_name="Status", color="Status")
+                    hover_name="Country", color="Status")
     return fig
 def infant_deaths_thiness(data):
     year2008 = data[data['Year'] == 2008]
@@ -19,5 +19,5 @@ def infant_deaths_thiness(data):
                     x="infant deaths", 
                     y=" thinness  1-19 years", 
                     title="La mortalité infantile en fonction de la minceur",
-                    hover_name="Status", color="Status")
+                    hover_name="Country", color="Status")
     return fig

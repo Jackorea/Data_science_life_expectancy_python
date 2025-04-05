@@ -10,7 +10,7 @@ import time
 def carte(data):
     year2004 = data[data['Year'] == 2004]
     countries = year2004['Country'].unique()
-    geolocator = Nominatim(user_agent="myVihPrevalenceApp_2024")
+    geolocator = Nominatim(user_agent="myVihPrevalenceApp_2024", timeout=2)
     coordinates = {}
     for c in countries:
         location = geolocator.geocode(c)

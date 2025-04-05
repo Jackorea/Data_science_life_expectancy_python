@@ -1,4 +1,3 @@
-
 import plotly.express as px
 import plotly.io as pio
 import dash
@@ -110,11 +109,10 @@ def create_dashboard():
                     config={'displayModeBar': False}
                 ),
                 html.Div(children=f'''
-                    L'histogram ci-dessus montre la relation entre l'espérance de vie et les dépenses
-                    de santé pour l'année 2008. Les barres indiquent la répartition des pays, on remarque que l'espérence de vie est
-                    le plus élevée pour les pays investissant le plus. On peut donc penser que plus les pays investissant dans la santé 
-                    plus l'espérence de vie augmentera. Egalement, ici on prend le pourcentage en compte des dépenses de santé en fonction des dépenses 
-                    totales. 
+                    Le graphique ci-dessus est un nuage de points (scatter plot) qui montre la relation 
+                    entre l'espérance de vie et les dépenses de santé pour l'année 2008. Chaque point représente un pays. 
+                    On observe que les pays qui investissent davantage dans la santé ont généralement une espérance de vie plus élevée. 
+                    Cela suggère une corrélation positive entre les dépenses de santé (en pourcentage des dépenses totales) et l'espérance de vie.
                 ''')
             ])
         ]),
